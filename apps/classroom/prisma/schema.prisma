@@ -1,0 +1,41 @@
+datasource mysql {
+  provider = "mysql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  createdAt DateTime @default(now())
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
+
+model Classroom {
+  createdAt   DateTime             @default(now())
+  description String?
+  id          String               @id @default(cuid())
+  name        String?
+  status      EnumClassroomStatus?
+  updatedAt   DateTime             @updatedAt
+}
+
+model Problem {
+  author    String?
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  memory    String?
+  title     String?
+  updatedAt DateTime @updatedAt
+}
+
+enum EnumClassroomStatus {
+  Option1
+}
